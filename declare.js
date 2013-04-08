@@ -1,6 +1,6 @@
 
 // module:
-//  	dojo/_base/declare
+//		dojo/_base/declare
 
 var lang = {
 	_mixin: function(dest, source, copyFunc){
@@ -263,7 +263,7 @@ function inherited__debug(args, a1, a2){
 //** REMOVED: for node-declare.js **
 //var inheritedImpl = dojo.config.isDebug ? inherited__debug : inherited;
 
-//** inheritedImpl = inherited;	//add for node-declare.js
+var inheritedImpl = inherited;	//add for node-declare.js
 
 // emulation of "instanceof"
 function isInstanceOf(cls){
@@ -383,7 +383,7 @@ function safeMixin(target, source){
 }
 
 function extend(source){
-	declare.safeMixin(this.prototype, source);
+	safeMixin(this.prototype, source);
 	return this;
 }
 
@@ -836,7 +836,7 @@ function declare(className, superclass, props){
 		proto = {};
 	}
 	// add all properties
-	declare.safeMixin(proto, props);
+	safeMixin(proto, props);
 	// add constructor
 	t = props.constructor;
 	if(t !== op.constructor){
@@ -1144,4 +1144,4 @@ declare.__DeclareCreatedObject = {
 
 
 
-exports = declare;
+module.exports = declare;
