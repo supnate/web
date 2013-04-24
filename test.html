@@ -9,7 +9,8 @@
 		}
 
 		#wrapper {
-
+			position: relative;
+			
 		}
 
 		table {	border-collapse: collapse;}
@@ -17,13 +18,14 @@
 			border: 1px solid #ccc;
 			color: #666;
 			font-weight: normal;
-			text-align: left;
+			text-align: center;
 			font-family: arial;
 			font-size: 12px;
-			height: 30px;
-			text-align: center;
+			
 			vertical-align: middle;
-			padding: 0 10px;
+			padding: 7px 0px;
+			background: #fff;
+
 		}
 
 		.rotate45 {
@@ -31,7 +33,41 @@
 			-ms-transform:rotate(-45deg); /* IE 9 */
 			-webkit-transform:rotate(-45deg); /* Safari and Chrome */
 			position: absolute;
-			width: 200px;
+			width: 150px;
+			text-align: left;
+			padding-left: 10px;
+			border-left: none;
+		}
+
+		.skew45 {
+			transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-webkit-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-moz-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-o-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-ms-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+		}
+
+		.skew45 div{
+			transform: rotate(0deg) scale(1) skew(45deg) translate(0px);
+			-webkit-transform: rotate(0deg) scale(1) skew(45deg) translate(0px);
+			-moz-transform: rotate(0deg) scale(1) skew(45deg) translate(0px);
+			-o-transform: rotate(0deg) scale(1) skew(45deg) translate(0px);
+			-ms-transform: rotate(0deg) scale(1) skew(45deg) translate(0px);
+		}
+
+		.fillTop {
+			position: absolute;
+			transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-webkit-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-moz-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-o-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			-ms-transform: rotate(0deg) scale(1) skew(-45deg) translate(0px);
+			top: 0;
+			width: 42px;
+			height: 30px;
+			border: 1px solid #ddd;
+			border-bottom: none;
+			background: #fff;
 		}
 
 	</style>
@@ -43,21 +79,21 @@
 		<table id="table">
 			<tbody>
 				<tr>
-					<th rowspan="2">Monitoring Status</th>
-					<th rowspan="2">Data Server Status</th>
-					<th colspan="2">Alert</th>
-					<th colspan="3">System</th>
-					<th colspan="3">Database</th>
+					<th rowspan="2"><div>Monitoring Status</div></th>
+					<th rowspan="2"><div>Data Server Status</div></th>
+					<th colspan="2"><div>Alert</div></th>
+					<th colspan="3"><div>System</div></th>
+					<th colspan="3"><div>Database</div></th>
 				</tr>
 				<tr>
-					<th>Warning</th>
-					<th>Critical</th>
-					<th>Cpu Usage</th>
-					<th>Database Storage</th>
-					<th>Memory Usage</th>
-					<th>Locking</th>
-					<th>Recovery</th>
-					<th>Logging</th>
+					<th><div>Warning</div></th>
+					<th><div>Critical</div></th>
+					<th><div>Cpu Usage</div></th>
+					<th><div>Database Storage</div></th>
+					<th><div>Memory Usage</div></th>
+					<th><div>Locking</div></th>
+					<th><div>Recovery</div></th>
+					<th><div>Logging</div></th>
 				</tr>
 			</tbody>
 		</table>
@@ -68,10 +104,51 @@
 function $(id){return document.getElementById(id);}
 function each(arr, callback){for(var i = 0; i < arr.length; i++)callback(arr[i], i);}
 
-var table = $('table');
 
-var tr1 = table.rows[0];
-var tr2 = table.rows[1];
+function doTransform(){
+	var table = $('table');
+	var wrapper = $('wrapper');
+
+	var tr1 = table.rows[0];
+	var tr2 = table.rows[1];
+
+	var i = 0, left = 0, width = 43;
+	each(tr1.cells, function(cell){
+		if(cell.rowSpan == 2){
+			cell.className = 'rotate45';
+			cell.style.left = left + 'px';
+
+			cell.style.zIndex = 1;
+			left += width;
+			i++;
+
+			var div = document.createElement('div');
+			div.className = 'fillTop';
+			div.style.left = left + 71 + 'px';
+			div.style.top = '-55px';
+			div.style.zIndex = 3;
+
+			wrapper.appendChild(div);
+		}else if(cell.colSpan > 1){
+			cell.style.position = 'absolute';
+			cell.style.width = width * cell.colSpan + 'px';
+			cell.style.left = width * i + 113 + 'px';
+			cell.style.top = '-55px';
+			cell.style.zIndex = 2;
+			cell.className = 'skew45';
+			i += cell.colSpan;
+		}
+	});
+
+	each(tr2.cells, function(cell){
+		cell.className = 'rotate45';
+		cell.style.left = left + 'px';
+		cell.style.top = 0;
+		left += width;
+	});
+}
+
+doTransform();
 
 </script>
 </html>
