@@ -1,0 +1,78 @@
+<html>
+
+<head>
+  <title>DSAC Demo</title>
+	<style type="text/css">
+
+		body {
+			padding: 100px;
+		}
+
+		#wrapper {
+
+		}
+
+		table {	border-collapse: collapse;}
+		th {	
+			border: 1px solid #ccc;
+			color: #666;
+			font-weight: normal;
+			text-align: left;
+			font-family: arial;
+			font-size: 12px;
+			height: 30px;
+			text-align: center;
+			vertical-align: middle;
+			padding: 0 10px;
+		}
+
+		.rotate45 {
+			transform:rotate(-45deg);
+			-ms-transform:rotate(-45deg); /* IE 9 */
+			-webkit-transform:rotate(-45deg); /* Safari and Chrome */
+			position: absolute;
+			width: 200px;
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<div id="wrapper">
+		<table id="table">
+			<tbody>
+				<tr>
+					<th rowspan="2">Monitoring Status</th>
+					<th rowspan="2">Data Server Status</th>
+					<th colspan="2">Alert</th>
+					<th colspan="3">System</th>
+					<th colspan="3">Database</th>
+				</tr>
+				<tr>
+					<th>Warning</th>
+					<th>Critical</th>
+					<th>Cpu Usage</th>
+					<th>Database Storage</th>
+					<th>Memory Usage</th>
+					<th>Locking</th>
+					<th>Recovery</th>
+					<th>Logging</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+<script>
+function $(id){return document.getElementById(id);}
+function each(arr, callback){for(var i = 0; i < arr.length; i++)callback(arr[i], i);}
+
+var table = $('table');
+
+var tr1 = table.rows[0];
+var tr2 = table.rows[1];
+
+</script>
+</html>
+
